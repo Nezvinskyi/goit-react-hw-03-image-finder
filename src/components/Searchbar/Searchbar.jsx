@@ -1,11 +1,30 @@
-const Searchbar = () => (
-	<header className='Searchbar'>
-		<form className="SearchForm">
-			<button type='submit' className='SearchForm-button'></button>
-			<input type='text' className='SearchForm-input'/>
-		</form>
+import React, { Component } from 'react';
 
-	</header>
-)
+class Searchbar extends Component {
+	state = { query: '' };
+
+	handleChange = event => {
+		this.setState({ query: event.currentTarget.value });
+	};
+
+	handleSubmit = event => {
+		event.preventDefault();
+		console.log(this.state.query);
+	}
+
+	render() {
+		return (
+			<header className='Searchbar'>
+				<form className='SearchForm' onSubmit = {this.handleSubmit}>
+					<button type='submit' className='SearchForm-button'></button>
+					<input
+						type='text' className='SearchForm-input'
+						value={this.state.query}
+						onChange={ this.handleChange }
+					/>
+				</form>
+			</header>)
+	}
+}
  
 export default Searchbar;
