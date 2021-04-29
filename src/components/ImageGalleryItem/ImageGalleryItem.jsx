@@ -1,4 +1,4 @@
-const ImageGalleryItem = ({ id, url, alt }) => (
+const ImageGalleryItem = ({ url, alt }) => (
 	<>
 		<img src={url} alt={alt} className="ImageGalleryItem-image" />
 	</>

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import api from './services/pixabay-api';
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
-import api from './services/pixabay-api';
+import Button from './components/Button/Button';
 
 class App extends Component {
   state = {
     pics: [],
     searchQuery: '',
+    currentPage: 1,
+    error: null,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -16,16 +19,22 @@ class App extends Component {
   }
 
   onChangeQuery = query => {
-    this.setState({ searchQuery: query });
+    this.setState({ searchQuery: query, currentPage: 1, pics: [] });
   };
 
   fetchPics = () => {
-    const { searchQuery } = this.state;
-    const options = { searchQuery };
-    api.fetchPics(options).then(pics => {
-      console.log(pics);
-      this.setState({ pics: pics });
-    });
+    const { searchQuery, currentPage } = this.state;
+    const options = { searchQuery, currentPage };
+
+    api
+      .fetchPics(options)
+      .then(pics => {
+        this.setState(prevState => ({
+          pics: [...prevState.pics, ...pics],
+          currentPage: prevState.currentPage + 1,
+        }));
+      })
+      .catch(error => this.setState({ error }));
   };
 
   render() {
@@ -34,6 +43,8 @@ class App extends Component {
         <Searchbar onSubmit={this.onChangeQuery} />
 
         <ImageGallery pics={this.state.pics} />
+
+        {this.state.pics.length > 0 && <Button onClick={this.fetchPics} />}
       </div>
     );
   }

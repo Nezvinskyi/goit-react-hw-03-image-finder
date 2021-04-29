@@ -2,18 +2,14 @@ import ImageGalleryItem from '../ImageGalleryItem';
 
 const ImageGallery = ({pics}) => (
 	<ul className="ImageGallery">
-		{pics.map(({ id, previewURL, tags }) => (
+		{pics.map(({ id, webformatURL, tags }) => (
 			<li className="ImageGalleryItem" key={id}>
 				<ImageGalleryItem
-					id={id}
-					url={previewURL}
+					url={webformatURL}
 					alt={tags}
 				/>
 			</li>
 		))}
-			
-			
-			
 	</ul>
 )
  
