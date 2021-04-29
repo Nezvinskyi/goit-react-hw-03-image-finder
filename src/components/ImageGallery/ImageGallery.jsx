@@ -1,13 +1,20 @@
-import React, { Component } from 'react';
+import ImageGalleryItem from '../ImageGalleryItem';
 
-class ImageGallery extends Component {
-	state = {}
-	
-
-
-	render() { 
-		return ( <div className='ImageGallery'></div> );
-	}
-}
+const ImageGallery = ({pics}) => (
+	<ul className="ImageGallery">
+		{pics.map(({ id, previewURL, tags }) => (
+			<li className="ImageGalleryItem" key={id}>
+				<ImageGalleryItem
+					id={id}
+					url={previewURL}
+					alt={tags}
+				/>
+			</li>
+		))}
+			
+			
+			
+	</ul>
+)
  
 export default ImageGallery;
