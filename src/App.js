@@ -16,6 +16,7 @@ class App extends Component {
     largeImg: '',
     largeImgTags: '',
     isLoading: false,
+    fetchLength: '',
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -30,7 +31,12 @@ class App extends Component {
   }
 
   onChangeQuery = query => {
-    this.setState({ searchQuery: query, currentPage: 1, pics: [] });
+    this.setState({
+      searchQuery: query,
+      currentPage: 1,
+      pics: [],
+      fetchLength: '',
+    });
   };
 
   fetchPics = () => {
@@ -45,10 +51,13 @@ class App extends Component {
         this.setState(prevState => ({
           pics: [...prevState.pics, ...pics],
           currentPage: prevState.currentPage + 1,
+          fetchLength: pics.length,
         }));
       })
       .catch(error => this.setState({ error }))
-      .finally(() => this.setState({ isLoading: false }));
+      .finally(() => {
+        this.setState({ isLoading: false });
+      });
   };
 
   onPicClick = (pic, tags) => {
@@ -69,8 +78,10 @@ class App extends Component {
       showModal,
       isLoading,
       error,
+      fetchLength,
     } = this.state;
-    const shouldRenderLoadMoreButton = pics.length > 0 && !isLoading;
+    const shouldRenderLoadMoreButton =
+      pics.length > 0 && fetchLength === 12 && !isLoading;
     return (
       <div className="App">
         <Searchbar onSubmit={this.onChangeQuery} />
