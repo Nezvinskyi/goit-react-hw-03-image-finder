@@ -1,6 +1,10 @@
-const ImageGalleryItem = ({ url, alt }) => (
+const ImageGalleryItem = ({ url, alt, onClick }) => (
 	<>
-		<img src={url} alt={alt} className="ImageGalleryItem-image" />
+		<img
+			src={url}
+			alt={alt}
+			onClick={onClick} className="ImageGalleryItem-image"
+		/>
 	</>
 );
  
