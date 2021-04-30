@@ -22,6 +22,13 @@ class App extends Component {
     if (prevState.searchQuery !== this.state.searchQuery) {
       this.fetchPics();
     }
+
+    if (this.state.currentPage > 1) {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
   }
 
   onChangeQuery = query => {
@@ -51,10 +58,6 @@ class App extends Component {
       .catch(error => this.setState({ error }))
       .finally(() => {
         this.setState({ isLoading: false });
-        window.scrollTo({
-          top: document.documentElement.scrollHeight,
-          behavior: 'smooth',
-        });
       });
   };
 
