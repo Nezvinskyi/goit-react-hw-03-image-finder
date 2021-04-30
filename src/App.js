@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import api from './services/pixabay-api';
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
-import Button from './components/Button/Button';
 import Modal from './components/Modal';
 import Loader from 'react-loader-spinner';
 
@@ -88,7 +87,11 @@ class App extends Component {
         {isLoading && (
           <Loader className="Loader" color="#3f51b5" type="ThreeDots" />
         )}
-        {shouldRenderLoadMoreButton && <Button onClick={this.fetchPics} />}
+        {shouldRenderLoadMoreButton && (
+          <button type="button" className="Button" onClick={this.fetchPics}>
+            Load more
+          </button>
+        )}
 
         {error && (
           <p style={{ textAlign: 'center' }}>
