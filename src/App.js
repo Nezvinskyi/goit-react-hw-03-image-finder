@@ -23,7 +23,7 @@ class App extends Component {
       this.fetchPics();
     }
 
-    if (this.state.currentPage > 1) {
+    if (this.state.currentPage > 2) {
       window.scrollTo({
         top: document.documentElement.scrollHeight,
         behavior: 'smooth',
